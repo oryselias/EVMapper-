@@ -19,3 +19,13 @@ spring:
     user:
       name: admin
       password: admin
+
+# JWT Configuration
+jwt:
+  secret: evmapper-secret-key-that-should-be-at-least-256-bits-long-for-security
+  expiration: 86400000  # 24 hours in milliseconds
+
+# Routing Configuration
+routing:
+  api:
+    key:  # Add OpenRouteService API key here if needed
