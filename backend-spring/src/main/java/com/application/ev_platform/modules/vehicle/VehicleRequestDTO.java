@@ -1,38 +1,16 @@
 package com.application.ev_platform.modules.vehicle;
 
-import jakarta.persistence.*;
-import java.time.Instant;
-
-@Entity
-@Table(name = "vehicles")
-public class Vehicle {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class VehicleRequestDTO {
 
     private Long userId;
-
     private String make;
     private String model;
     private String registrationNumber;
     private String color;
-
-    @Column(name = "battery_capacity_kwh")
     private Double batteryCapacityKwh;
-
-    @Column(name = "connector_type")
-    private String connectorType; // CCS, CHAdeMO, Type 2, etc.
-
-    private Boolean active = true;
-
-    @Column(name = "created_at")
-    private Instant createdAt = Instant.now();
+    private String connectorType;
 
     // Getters & Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
     public Long getUserId() { return userId; }
     public void setUserId(Long userId) { this.userId = userId; }
 
@@ -53,10 +31,4 @@ public class Vehicle {
 
     public String getConnectorType() { return connectorType; }
     public void setConnectorType(String connectorType) { this.connectorType = connectorType; }
-
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
-
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }
