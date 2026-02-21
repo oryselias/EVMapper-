@@ -3,65 +3,110 @@
 This README explains how to run the backend server locally.
 
 ## Prerequisites
-- Java 17 (LTS) or newer installed and JAVA_HOME set.
-- Maven 3.6+ (or Gradle if project uses it).
 
-## If both of these given below are shown when you run it in terminal/powershell then you can run the project.
-  - java -version (>jdk 17)
-  - mvn -v (= 3.5.10)
-  - psql -version
+- Java 17 (LTS) or newer installed and JAVA_HOME set
+- Maven 3.6+ (verify with `mvn -v`)
+- PostgreSQL 14+ with PostGIS extension
 
-## Command to setup postgre sql
-
+Verify prerequisites:
+```bash
+java -version    # Should show JDK 17+
+mvn -v           # Should show Maven 3.6+
+psql --version  # Should show PostgreSQL 14+
 ```
+
+## Database Setup
+
+```bash
 psql -U postgres
 ```
-```
-CREATE DATABASE ev_platform;
-\c ev_platform
+
+Create the database:
+```sql
+CREATE DATABASE evmapper;
+\c evmapper
 CREATE EXTENSION postgis;
 ```
 
-Verify:
-```
+Verify PostGIS is installed:
+```sql
 SELECT PostGIS_Version();
 ```
 
+## Configuration
 
-Set env vars (examples):
-- PowerShell:
-  - $Env:SPRING_DATASOURCE_URL = 'jdbc:postgresql://localhost:5432/evmapper'
-- Bash:
-  - export SPRING_DATASOURCE_URL='jdbc:postgresql://localhost:5432/evmapper'
+Set environment variables before running:
 
-If no external DB is configured the app may run with an embedded DB (H2) if provided by the project.
+**PowerShell:**
+```powershell
+$Env:SPRING_DATASOURCE_URL='jdbc:postgresql://localhost:5432/evmapper'
+$Env:SPRING_DATASOURCE_USERNAME='postgres'
+$Env:SPRING_DATASOURCE_PASSWORD='your_password'
+```
 
-## Run locally (development)
-From project root (backend-spring/):
+**Bash:**
+```bash
+export SPRING_DATASOURCE_URL='jdbc:postgresql://localhost:5432/evmapper'
+export SPRING_DATASOURCE_USERNAME='postgres'
+export SPRING_DATASOURCE_PASSWORD='your_password'
+```
+
+If no external DB is configured, the app may run with an embedded H2 database (if available in the project).
+
+## Run Locally (Development)
+
+From project root (`backend-spring/`):
 
 Using Maven:
-- mvn spring-boot:run
-- mvn -Dspring-boot.run.profiles=dev spring-boot:run  (run specific profile)
+```bash
+mvn spring-boot:run
+```
+
+Run with specific profile:
+```bash
+mvn -Dspring-boot.run.profiles=dev spring-boot:run
+```
 
 Override port:
-- mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dserver.port=8081"
-- java -jar target/*.jar --server.port=8081
+```bash
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dserver.port=8081"
+```
 
-## Build a jar and run
-- mvn clean package
-- java -jar target/<artifact>-<version>.jar
+## Build a JAR and Run
 
-## Run tests
-- mvn test
+```bash
+mvn clean package
+java -jar target/<artifact>-<version>.jar
+```
 
-## Quick health check
-If an endpoint exists (or actuator enabled):
-- curl http://localhost:8080/actuator/health
+Run JAR on custom port:
+```bash
+java -jar target/*.jar --server.port=8081
+```
+
+## Run Tests
+
+```bash
+mvn test
+```
+
+## Health Check
+
+If Spring Actuator is enabled:
+```bash
+curl http://localhost:8080/actuator/health
+```
+
 Or try a known API endpoint:
-- curl http://localhost:8080/api/health
+```bash
+curl http://localhost:8080/api/health
+```
 
-## Useful commands summary
-- Start (Maven): mvn spring-boot:run
-- Build: mvn clean package
-- Run jar: java -jar target/*.jar
-- Tests: mvn test
+## Useful Commands Summary
+
+| Action | Command |
+|--------|---------|
+| Start (Maven) | `mvn spring-boot:run` |
+| Build | `mvn clean package` |
+| Run JAR | `java -jar target/*.jar` |
+| Run tests | `mvn test` |

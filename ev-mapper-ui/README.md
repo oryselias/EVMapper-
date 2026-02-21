@@ -1,13 +1,46 @@
-## UI using Native react
+# EVMapper - Frontend (React)
 
-To run the UI server locally, first make the backend-spring server running in 8080 port.
+This is the React/TypeScript frontend for EVMapper.
 
-Then install dependencies using the command
-```
+## Prerequisites
+
+- Node.js 18+ installed
+- Backend server running on port 8080 (see [backend-spring/README.md](../backend-spring/README.md))
+
+## Installation
+
+Install dependencies:
+
+```bash
 npm install
 ```
 
-To run locally in web browser, run:
+## Development
+
+Run the development server:
+
+```bash
+npm run dev
 ```
-npm run web
+
+This will start the frontend at `http://localhost:5173` (default Vite port).
+
+## Build for Production
+
+```bash
+npm run build
 ```
+
+The built files will be in the `dist` directory.
+
+## Configuration
+
+The frontend expects the backend API at `http://localhost:8080`. If your backend runs on a different port or URL, update the API configuration in the source code.
+
+## Tech Stack
+
+- React 18
+- TypeScript
+- Vite (build tool)
+- Leaflet (maps)
+- OpenStreetMap
