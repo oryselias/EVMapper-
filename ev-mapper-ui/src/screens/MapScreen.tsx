@@ -7,7 +7,7 @@ import {
   TextInput,
   Button,
 } from "react-native";
-import MapViewWrapper from "../components/MapView";
+import MapViewWrapper from "../components/MapView.web";
 
 type Step = "idle" | "picking" | "form";
 

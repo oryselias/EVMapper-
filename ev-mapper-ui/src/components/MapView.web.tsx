@@ -37,9 +37,11 @@ export default function MapViewWrapper({
         return null;
     }
 
+    const MapContainerAny = MapContainer as any;
+    
     return (
-        <MapContainer
-            center={[12.9716, 77.5946]}
+        <MapContainerAny
+            center={[12.9716, 77.5946] as [number, number]}
             zoom={13}
             style={{
                 height: "100vh",
@@ -54,7 +56,7 @@ export default function MapViewWrapper({
             <ClickHandler />
 
             {tempPos && <Marker position={tempPos} />}
-        </MapContainer>
+        </MapContainerAny>
     );
 }
 function ResizeFix() {
